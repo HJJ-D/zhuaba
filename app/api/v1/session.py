@@ -3,6 +3,7 @@ from flask_login import current_user, login_required, login_user, logout_user
 
 from app.libs.error_code import DeleteSuccess, Success
 from app.libs.red_print import RedPrint
+from app.model.user import User
 
 api = RedPrint('session')
 
