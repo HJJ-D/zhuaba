@@ -1,8 +1,9 @@
-from sqlalchemy import Column, Integer, String, Boolean, ForeignKey, DateTime
+from sqlalchemy import Column, Integer, String, ForeignKey, DateTime
 
 from app.model.base import Base
-from app.model.user import User
 from app.model.commodity import Commodity
+from app.model.user import User
+
 
 class Purchase_History(Base):
     __tablename__ = 'purchase_history'
