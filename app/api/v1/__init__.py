@@ -1,6 +1,6 @@
 from flask import Blueprint
 
-from app.api.v1 import session, commodity
+from app.api.v1 import session, commodity, driver
 
 
 def create_blueprint_v1():
@@ -8,5 +8,5 @@ def create_blueprint_v1():
 
     session.api.register(bp_v1)
     commodity.api.register(bp_v1)
-
+    driver.api.register(bp_v1)
     return bp_v1
