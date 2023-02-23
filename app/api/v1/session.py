@@ -1,8 +1,9 @@
 import requests
 from flask_login import current_user, login_required, login_user, logout_user
 
-from app.libs.error_code import DeleteSuccess, Success
+from app.libs.error_code import DeleteSuccess, Success, Forbidden
 from app.libs.red_print import RedPrint
+from app.model.driver import Driver
 from app.model.user import User
 
 api = RedPrint('session')
@@ -28,9 +29,17 @@ def create_session_api(code):
     r = requests.get('https://api.weixin.qq.com/sns/jscode2session', params=data)
     ans = r.json()
     user = User.get_by_id(ans['openid'])
+    login_user(user, remember=True)
+    return Success('登录成功')
+
+
+@api.route('/<string:username>/<string:password>', methods=['POST'])
+def create_session_api1(username, password):
+    user = Driver.get_by_id(username)
     if user is None:
-        User.create(username=ans['openid'])
-        user = User.get_by_id(ans['openid'])
+        return Forbidden('用户不存在')
+    if not user.check_password(password):
+        return Forbidden('用户或密码错误')
     login_user(user, remember=True)
     return Success('登录成功')
 
