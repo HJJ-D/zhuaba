@@ -1,6 +1,7 @@
-from sqlalchemy import Column, Integer, String, Boolean, ForeignKey, DateTime, Float
+from sqlalchemy import Column, Integer, String, Float
 
 from app.model.base import Base
+
 
 class Commodity(Base):
     __tablename__ = 'commodity'

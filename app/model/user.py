@@ -1,5 +1,5 @@
 from flask_login import UserMixin
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, String
 
 from app import login_manager
 from app.libs.error_code import LoginFirst

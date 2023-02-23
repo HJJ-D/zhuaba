@@ -1,8 +1,8 @@
-import requests
 from flask_login import current_user, login_required, login_user, logout_user
 
 from app.libs.error_code import DeleteSuccess, Success
 from app.libs.red_print import RedPrint
+from app.model.user import User
 
 api = RedPrint('session')
 
@@ -17,19 +17,12 @@ def get_session_api():
     })
 
 
-@api.route('/<string:code>', methods=['POST'])
-def create_session_api(code):
-    data = {
-        'appid': 'wx9b353c6548c44f15',
-        'secret': 'e4b56652625f23d64690171141fa5276',
-        'js_code': code
-    }
-    r = requests.get('https://api.weixin.qq.com/sns/jscode2session', params=data)
-    ans = r.json()
-    user = User.get_by_id(ans['openid'])
+@api.route('/<string:username>', methods=['POST'])
+def create_session_api(username):
+    user = User.get_by_id(username)
     if user is None:
-        User.create(username=ans['openid'])
-        user = User.get_by_id(ans['openid'])
+        User.create(username=username)
+        user = User.get_by_id(username)
     login_user(user, remember=True)
     return Success('登录成功')
 
