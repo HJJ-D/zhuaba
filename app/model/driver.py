@@ -9,15 +9,15 @@ from app.model.base import Base
 
 class Driver(UserMixin, Base):
     __tablename__ = 'driver'
-    fields = ['license_plate', 'username', 'nickname']
-    username = Column(String(100), primary_key=True)
+    fields = ['license_plate', 'driver_id', 'nickname']
+    driver_id = Column(String(100), primary_key=True)
     license_plate = Column(String(100))
     password_ = Column('password', String(200), nullable=False)
     nickname = Column(String(100))
 
     @property
     def id(self):
-        return self.username
+        return self.driver_id
 
     def check_password(self, raw):
         if not self.password_ or not raw:
